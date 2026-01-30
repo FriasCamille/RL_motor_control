@@ -1,0 +1,19 @@
+# Object files
+*.o
+
+# Dependency files
+*.d
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directories
+build/
+bin/
+.vscode/
+trainings/
+# Backup files
+TrainRL
+MUJOCO_LOG.TXT
