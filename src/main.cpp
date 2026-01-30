@@ -1,8 +1,8 @@
 #include <iostream>
 #include <mujoco/mujoco.h>
-#include "include/Q_learning.h"
-#include "include/environment.h"
-#include "include/viewer.h"
+#include "include/Qlearning.h"
+#include "include/Environment.h"
+#include "include/Viewer.h"
 
 int main() {
     std::cout << "MuJoCo version: "
