@@ -12,7 +12,8 @@ LDFLAGS = \
 	-lmujoco \
 	-lglfw \
 	-lGL \
-	-lm
+	-lm \
+	-lyaml-cpp \
 
 # Makefile settings - Can be customized.
 APPNAME = TrainRL

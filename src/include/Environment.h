@@ -39,42 +39,42 @@ class Environment
         double read_joint_position(const char* jname) const 
         {
             int jid = mj_name2id(m, mjOBJ_JOINT, jname);
-            if (jid < 0) { cerr << ERROR << "Joint no encontrado: " << jname << endl; return 0.0; }
+            if (jid < 0) { cerr << ERROR << "Al leer la posición joint no encontrado: " << jname << endl; return 0.0; }
             return d->qpos[m->jnt_qposadr[jid]];
         }
 
         double read_joint_velocity(const char* jname) 
         {
             int jid = mj_name2id(m, mjOBJ_JOINT, jname);
-            if (jid < 0) { cout << ERROR << "Joint no encontrado: " << jname << endl; exit(1); }
+            if (jid < 0) { cout << ERROR << "al leer la velocidad joint no encontrado: " << jname << endl; exit(1); }
             return d->qvel[m->jnt_dofadr[jid]];
         }
 
         double read_joint_force(const char* jname) 
         {
             int act_id = mj_name2id(m, mjOBJ_ACTUATOR, jname);
-            if (act_id < 0) { cout << ERROR << "Joint actuator no encontrado: " << jname << endl; exit(1); }
+            if (act_id < 0) { cout << ERROR << "Al leer la fuerza joint actuator no encontrado: " << jname << endl; exit(1); }
             return d->ctrl[act_id];
         }
 
         void write_joint_position(const char* jname, double val) const 
         {
             int jid = mj_name2id(m, mjOBJ_JOINT, jname);
-            if (jid < 0) { cerr << ERROR << "Joint no encontrado: " << jname << endl; return; }
+            if (jid < 0) { cerr << ERROR << "Al escribir la posición joint no encontrado: " << jname << endl; return; }
             d->qpos[m->jnt_qposadr[jid]] = val;
         }
 
         void write_joint_velocity(const char* jname, double val) 
         {
             int jid = mj_name2id(m, mjOBJ_JOINT, jname);
-            if (jid < 0) { cout << ERROR << "Joint no encontrado: " << jname << endl; return; }
+            if (jid < 0) { cout << ERROR << "Al escribir la velocidad joint no encontrado: " << jname << endl; return; }
             d->qvel[m->jnt_dofadr[jid]] = val;
         }
 
         void write_joint_force(const char* jname, double val) 
         {
             int act_id = mj_name2id(m, mjOBJ_ACTUATOR, jname);
-            if (act_id < 0) { cout << ERROR << "Joint actuator no encontrado: " << jname << endl; return; }
+            if (act_id < 0) { cout << ERROR << "Al escribir la fuerza joint actuator no encontrado: " << jname << endl; return; }
             d->ctrl[act_id] = val;
         }
         double time_now() const { return d->time; }
