@@ -57,8 +57,9 @@ int main(int argc, char* argv[])
     const double d = p["discount"].as<double>();
 
 
-    const int states = 360;
-    const int actions = 3;
+
+    int disc =360;
+    const long unsigned int states = disc*10, actions = 3;
 
     int succes = 0, steps = 0, episodes = 0;
     double average_reward = 0, episode_reward = 0, total_reward = 0;
@@ -79,7 +80,7 @@ int main(int argc, char* argv[])
     
     long unsigned int present_state = 0, new_state = 0, action_taken = 0;
     double reward_given = 0;
-    double random_angle, motor_angle; 
+    double random_angle, motor_angle, motor_velocity; 
     bool first = true, goal_flag = false, step_flag = false, restart = false;
 
     QLearning table(states, actions, e, a, gamma, d);
@@ -104,8 +105,6 @@ int main(int argc, char* argv[])
     }
     
     env.forward();
-
-    int disc =360;
 
     Handler agent(disc,-M_PI, M_PI);
 
@@ -161,13 +160,14 @@ int main(int argc, char* argv[])
         if(!first) 
         {
             motor_angle = env.read_joint_position("hinge"); //nombre declarado en el xml
-            new_state = agent.get_state_index(motor_angle);
+            motor_velocity = env.read_joint_velocity("hinge"); //nombre declarado en el xml
+            new_state = agent.get_state_index(motor_angle, motor_velocity);
             table.update(present_state, action_taken, reward_given, new_state);
             present_state = new_state;
         }
         else 
         {
-            present_state = agent.get_state_index(motor_angle);
+            present_state = agent.get_state_index(motor_angle, motor_velocity);
             first = false;
         }
 
@@ -217,7 +217,7 @@ int main(int argc, char* argv[])
     
     // Guardar Q-table final
     saveVector(table.get_table(), trainment_path);
-    cout << "Q-table final guardada como 'getup_trainment' en la carpeta trainings" << endl;
+    cout << "Q-table final guardada como 'trainment' en la carpeta trainings" << endl;
     
     // Limpieza
     if(view) delete viewer;

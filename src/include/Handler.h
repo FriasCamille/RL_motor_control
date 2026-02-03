@@ -13,6 +13,7 @@ private:
     double L;
     double action_value;
     vector<double> positions; 
+    vector<double> velocities; 
 
 public:
 
@@ -27,6 +28,14 @@ public:
             positions.push_back(lower+(step*i));
         }
 
+        range = 20;
+        step = range/disc;
+
+        for (int i =0; i<disc; i++)
+        {
+            velocities.push_back(lower+(step*i));
+        }
+
     }
     
     double reward(double error)
@@ -37,21 +46,33 @@ public:
         return reward;
     }
     
-   inline int get_state_index(double value)
+   inline int get_state_index(double position, double velocity)
         {
-            double diff = abs(value- L);
-            int prox_iterator=0;
+            double diff = abs(position- L);
+            int prox_position=0;
 
             for (long unsigned int i=0; i<positions.size(); i++)
             {
-                if(diff> abs(value-positions[i]))
+                if(diff> abs(position-positions[i]))
                 {
-                    diff = abs(value-positions[i]);
-                    prox_iterator = i;
+                    diff = abs(position-positions[i]);
+                    prox_position = i;
                 }
-
             }
-            return prox_iterator;
+
+            diff = abs(velocity- 10);
+            int prox_velocity=0;
+
+            for (long unsigned int i=0; i<velocities.size(); i++)
+            {
+                if(diff> abs(velocity-velocities[i]))
+                {
+                    diff = abs(velocity-velocities[i]);
+                    prox_velocity = i;
+                }
+            }
+            int state = (prox_position*pow(D,2)) + (prox_velocity*pow(10,1));
+            return state;
         }
 
     
