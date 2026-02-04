@@ -8,7 +8,8 @@ class Handler
 private:
     
     int state;
-    int D;
+    int D_pos;
+    int D_vel;
     double U;
     double L;
     double action_value;
@@ -17,21 +18,21 @@ private:
 
 public:
 
-    Handler(int disc, double upper, double lower):D(disc), U(upper), L(lower), action_value(0.0) 
+    Handler(int disc_pos,int disc_vel, double upper, double lower):D_pos(disc_pos),D_vel(disc_vel), U(upper), L(lower), action_value(0.0) 
     {
 
         double range = upper-lower;
-        double step = range/disc;
+        double step = range/disc_pos;
 
-        for (int i =0; i<disc; i++)
+        for (int i =0; i<disc_pos; i++)
         {
             positions.push_back(lower+(step*i));
         }
 
         range = 20;
-        step = range/disc;
+        step = range/disc_vel;
 
-        for (int i =0; i<disc; i++)
+        for (int i =0; i<disc_vel; i++)
         {
             velocities.push_back(lower+(step*i));
         }
@@ -71,7 +72,7 @@ public:
                     prox_velocity = i;
                 }
             }
-            int state = (prox_position*pow(D,2)) + (prox_velocity*pow(10,1));
+            int state = (prox_position*D_vel + prox_velocity);
             return state;
         }
 

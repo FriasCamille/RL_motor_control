@@ -58,8 +58,9 @@ int main(int argc, char* argv[])
 
 
 
-    int disc =360;
-    const long unsigned int states = disc*10, actions = 3;
+    int disc_position =360;
+    int disc_velocity = 10;
+    const long unsigned int states = disc_position*disc_velocity, actions = 3;
 
     int succes = 0, steps = 0, episodes = 0;
     double average_reward = 0, episode_reward = 0, total_reward = 0;
@@ -106,7 +107,7 @@ int main(int argc, char* argv[])
     
     env.forward();
 
-    Handler agent(disc,-M_PI, M_PI);
+    Handler agent(disc_position,disc_velocity,-M_PI, M_PI);
 
     while(running)
     {
