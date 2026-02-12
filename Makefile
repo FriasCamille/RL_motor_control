@@ -4,7 +4,7 @@
 
 # Compiler settings - Can be customized.
 CC = g++
-CXXFLAGS = -std=c++17 -Wall \
+CXXFLAGS = -std=c++20 -Wall \
 	-I/opt/mujoco/include
 
 LDFLAGS = \
